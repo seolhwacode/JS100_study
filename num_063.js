@@ -16,5 +16,14 @@
 ```
 */
 
+const input = '복잡한 세상 편하게 살자';
 
+const array = input.split(' ');
+let result = '';
+
+for(let item of array){
+    result += item[0];
+}
+
+console.log(result);
 

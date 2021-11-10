@@ -11,4 +11,13 @@
 5. input을 이용해서는 안됩니다.
 */
 
-console.log();
+// 도저히 생각을 못해서 답지를 봤습니다. 
+// 아스키 코드를 사용하는 것인가? 고민했지만, 사용을 못해서...
+// 재밋는 문제인 것 같습니다.
+
+//abcdefgh
+//20190923
+const user_s = 'aacdddddddddfffffffffgghhh';
+let result_s = '';
+
+console.log(`${user_s.match(/a/g).length}${Number(user_s.match(/b/g))}${user_s.match(/c/g).length}${user_s.match(/d/g).length}${Number(user_s.match(/e/g))}${user_s.match(/f/g).length}${user_s.match(/g/g).length}${user_s.match(/h/g).length}`);
