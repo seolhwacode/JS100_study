@@ -19,3 +19,51 @@
 ['지나갔습니다', '00시간 40분', '01시간 33분']
 ```
 */
+
+const busTimetable = ["12:30", "13:20", "14:13"];
+const currentTimeInput = '12:40';
+
+// //버스 시간표 배열 복사
+// let tmpArray = busTimetable.slice();
+// //복사한 배열에 현재 시간 추가
+// tmpArray.push(currentTime);
+// //복사한 배열 정렬 -> 오름차순
+// tmpArray.sort();
+
+//결과 배열 : 버스 시간표에 맞게 지나간 것은 '지나갔습니다.', 아직인 것은 남은 시간 표기
+let result = busTimetable.map((value, index) => {
+   //이미 지나간 시간표
+   if(value < currentTimeInput){
+      console.log('지나갔습니다.');
+      return '지나갔습니다.'
+   }
+   //지나가지X -> 남은 시간(string) -> 남은 시간(number)
+   //지나가지X -> 남은 분(string) -> 남은 분(number)
+   //slice(3) : 분 부분부터 끝까지 복사
+   //-> 분단위로 만들기(계산을 위해)
+   let busTime = (parseInt(value.slice(0, 2), 10) * 60) +  parseInt(value.slice(3), 10);
+
+   //현재 시간 & 분 자르기 -> 분단위로 만들기(계산을 위해)
+   let currentTime = (parseInt(currentTimeInput.slice(0, 2), 10) * 60) + parseInt(currentTimeInput.slice(3), 10);
+
+   // 버스 시간표와 현재 시간의 차이(분 단위)
+   let diffHousr = parseInt((busTime - currentTime) / 60, 10);
+   let diffMinute = parseInt((busTime - currentTime) % 60, 10);
+   
+   //남은 시간 & 분 계산하여 result 배열에 추가(return)
+   let returnStr = '';
+   //시간 한 자리 수
+   if(diffHousr < 10){
+      returnStr += '0';
+   }
+   returnStr += `${diffHousr}시간 `;
+   //분 한 자리 수
+   if(diffMinute < 10){
+      returnStr += '0';
+   }
+   returnStr += `${diffMinute}분`;
+
+   return returnStr;
+});
+
+console.log(result);
