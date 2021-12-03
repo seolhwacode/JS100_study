@@ -21,21 +21,31 @@ const a = [[1, 2], [2, 4]];
 const b = [[1, 0], [0, 3]];
 
 function multiplyMatrix(a, b){
-    // n X m, p X q 행렬일 때, m 과 p 가 같아햐 계산 가능
+    //1. 행렬의 길이가 없으면 -> 계산 못함
+    //2. n X m, p X q 행렬일 때, m 과 p 가 같아햐 계산 가능
     // 계산 X -> -1 리턴
-    if(a[0].length !== b.length){
+    if(a.length === 0 || b.length === 0 || a[0].length !== b.length){
         return -1;
     }
     //계산 가능
     //결과
     let result = [];
-    for(let i = 0; i < a.length; i++){
-        let sum = 0;
-        for(let j = 0; j < b.length; j++){
-            sum += a[i][j] * b[j][i];
+    //왼쪽 행렬 a : n x m 의 n 만큼 반복
+    for(let n = 0; n < a.length; n++){
+        let row = [];
+        for(let q = 0; q < b[0].length; q++){
+            //합
+            let sum = 0;
+            for(let m = 0; m < b.length; m++){
+                sum += a[n][m] * b[m][q];
+            }
+            row.push(sum);
         }
-        
+        result.push(row);
     }
+    //계산 결과 출력
+    console.log(result);
 }
 
-console.log(multiplyMatrix(a, b));
+//실패하면 -1 출력
+console.log(multiplyMatrix(a, b) === -1 ? -1 : '계산 완료');
