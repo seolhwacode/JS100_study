@@ -11,7 +11,7 @@
 데이터
 graph = {'E': ['D', 'A'],
         'F': ['D'],
-        'A': ['E', 'C', 0'B'],
+        'A': ['E', 'C', 'B'],
         'B': ['A'],
         'C': ['A'],
         'D': ['E','F']}
@@ -20,3 +20,52 @@ graph = {'E': ['D', 'A'],
 E D A F C B
 ```
 */
+
+function bfs(graph, searchResult, start){
+    //노드를 담을 큐
+    let queue = [];
+
+    //시작 노드를 큐에 넣기
+    queue.push(start);
+
+    //큐가 빌 때까지 반복
+    while(queue.length > 0){
+        //큐에 제일 처음 넣은 노드를 꺼낸다.
+        const node = queue.shift();
+        //꺼낸 노드가 결과 배열에 없으면
+        if(!searchResult.includes(node)){
+            //결과 배열에 노드 추가
+            searchResult.push(node);
+        }
+        //꺼낸 노드와 연결된 노드가 1개 => 가장 끝의 leaf node
+        if(graph[node].length === 1){
+            //아래의 for 문을 실행하지 X
+            continue;
+        }
+        //꺼낸 노드와 인접한 노드들 중, 결과 배열에 없는 것을 queue 에 push
+        graph[node].forEach(element => {
+            //결과 배열에 해당 노드가 없으면
+            if(!searchResult.includes(element)){
+                //결과 배열에 노드 추가
+                queue.push(element);
+            }
+        });
+    }
+}
+
+//input
+const graph = {
+    'E': ['D', 'A'],
+    'F': ['D'],
+    'A': ['E', 'C', 'B'],
+    'B': ['A'],
+    'C': ['A'],
+    'D': ['E','F']
+};
+
+//결과 배열
+let result = [];
+//bfs
+bfs(graph, result, 'E');
+//출력
+console.log(result);
